@@ -89,7 +89,7 @@ case $key in
 	-l|--list)
 		list_pokemon
 		;;
-	-n|--no-name)
+	-N|--no-name)
 		DISPLAY_NAME="NO"
 		shift
 		;;
