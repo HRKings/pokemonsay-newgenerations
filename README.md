@@ -37,6 +37,14 @@ cd pokemonsay
 
 After the last command, you will have `pokemonsay` installed in you home folder in `~/.bin/pokemonsay/`. And an symbolic link will be created in `~/bin/pokemonsay`, so that you can have `pokemonsay` in your `$PATH` too.
 
+### Arch Linux
+
+Again, if you use Arch Linux or any other Arch-based distro, you can get pokemonsay from the AUR (using `yay` for example):
+
+```bash
+yay -S pokemonsay-newgenerations-git
+```
+
 ## Usage
 
 Now that you've installed `pokemonsay`, you can make it work like so:
