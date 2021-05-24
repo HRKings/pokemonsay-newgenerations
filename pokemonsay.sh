@@ -39,6 +39,7 @@ list_pokemon() {
 	echo "$ALL_POKEMON" | while read POKEMON; do
 		POKEMON=${POKEMON##*/}
 		POKEMON=${POKEMON%.cow}
+		POKEMON=${POKEMON##*_}
 		echo $POKEMON
 	done
 	exit 0
@@ -55,6 +56,14 @@ case $key in
 		;;
 	-p=*|--pokemon=*)
 		POKEMON_NAME="${1#*=}"
+		shift
+		;;
+	-d|--nationalDex)
+		NATIONAL_DEX="$2"
+		shift; shift
+		;;
+	-d=*|--nationalDex=*)
+		NATIONAL_DEX="${1#*=}"
 		shift
 		;;
 	-f|--file)
@@ -118,7 +127,9 @@ fi
 
 # Define which pokemon should be displayed.
 if [ -n "$POKEMON_NAME" ]; then
-	POKEMON_COW=$(find $POKEMON_PATH -name "$POKEMON_NAME.cow")
+	POKEMON_COW=$(find $POKEMON_PATH -name "*$POKEMON_NAME.cow")
+elif [ -n "$NATIONAL_DEX" ]; then
+	POKEMON_COW=$(find $POKEMON_PATH -name "${NATIONAL_DEX}_*.cow" -print -quit)
 elif [ -n "$COW_FILE" ]; then
 	POKEMON_COW="$COW_FILE"
 else
@@ -126,8 +137,9 @@ else
 fi
 
 # Get the pokemon name.
-filename=$(basename "$POKEMON_COW")
-POKEMON_NAME="${filename%.*}"
+FILENAME=$(basename "$POKEMON_COW")
+POKEMON_NAME="${FILENAME%.*}"
+POKEMON_NAME="${POKEMON_NAME##*_}"
 
 # Call cowsay or cowthink.
 if [ -n "$THINK" ]; then
