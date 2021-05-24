@@ -1,4 +1,4 @@
-pokemonsay : Revived
+pokemonsay : New Generations
 ==========
 
 ![You should try pokemonsay!](res/example.png)
