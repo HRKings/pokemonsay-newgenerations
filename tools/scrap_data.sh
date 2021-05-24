@@ -4,17 +4,17 @@
 # This script scraps some pokémon pictures from Bulbapedia.
 #
 
-bulbapedia_page_url="http://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number"
-bulbapedia_page_name="bulbapedia.html"
-scrap_folder="`pwd`/scrapped-data"
+BULBAPEDIA_PAGE_URL="http://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number"
+BULBAPEDIA_PAGE_NAME="bulbapedia.html"
+SCRAP_FOLDER="`pwd`/scrapped-data"
 
 # Make sure the directory for the scrapped data is there.
-mkdir -p "$scrap_folder"
+mkdir -p "${SCRAP_FOLDER}"
 
 # Download the bulbapedia page if it doesn't already.
 if [ ! -e "scrapped-data/bulbapedia.html" ]; then
-	echo "  > Downloading '$bulbapedia_page_url' to '$scrap_folder/$bulbapedia_page_name' ..."
-	wget "$bulbapedia_page_url" -O "$scrap_folder/$bulbapedia_page_name" -q
+	echo "  > Downloading '$BULBAPEDIA_PAGE_URL' to '$SCRAP_FOLDER/$BULBAPEDIA_PAGE_NAME' ..."
+	wget "$BULBAPEDIA_PAGE_URL" -O "$SCRAP_FOLDER/$BULBAPEDIA_PAGE_NAME" -q
 	echo "  > Downloaded."
 fi
 
@@ -39,37 +39,35 @@ fi
 #                                                     Kind regards,
 #                                           Yourself from the past.
 
-pokemon_images=$(
-	cat "$scrap_folder/$bulbapedia_page_name" | \
+POKEMON_IMAGES=$(
+	cat "${SCRAP_FOLDER}/${BULBAPEDIA_PAGE_NAME}" | \
 	sed -nr 's;^.*<img alt="(.*)" src="(//cdn2.bulbagarden.net/upload/.*\.png)".*/>.*$;\1=\2;p' \
 )
 
-pokemon_total=0
-
-echo $pokemon_images | while read line
+echo "$POKEMON_IMAGES" | while read line
 do
-	pokemon_name="${line%=*}"
-	pokemon_url="https:${line#*=}"
-	pokemon_form=$(echo $pokemon_url| sed -nr 's;.*[0-9]+([A-Z])MS.*;\1;p')
+	POKEMON_NAME="${line%=*}"
+	POKEMON_URL="https:${line#*=}"
+	POKEMON_FORM=$(echo ${POKEMON_URL}| sed -nr 's;.*/[0-9]+([A-Z]+)MS.*;\1;p')
+	POKEMON_NATIONAL_DEX_NUMBER=$(echo ${POKEMON_URL}| sed -nr 's;.*/([0-9]+).*;\1;p')
 
 	# Unescape HTML characters... Damn "Farfetch&#39;d".
-	pokemon_name=$(echo "$pokemon_name" | sed "s/&#39;/'/")
+	POKEMON_NAME=$(echo "${POKEMON_NAME}" | sed "s/&#39;/'/")
 
-	if [ -n "$pokemon_form" ]
+	if [ -n "${POKEMON_FORM}" ]
 	then
-    	pokemon_name="$pokemon_name-$pokemon_form"
+    	POKEMON_NAME="${POKEMON_NAME}-${POKEMON_FORM}"
 	fi
 
 	# If wget is interrupted by a SIGINT or something, it will
 	# leave a broken file. Let's remove it and exit in case we
 	# receive a signal like this.
 	# Signals: (1) SIGHUP; (2) SIGINT; (15) SIGTERM.
-	trap "rm $scrap_folder/$pokemon_name.png; echo Download of $pokemon_name was cancelled; exit" 1 2 15
+	trap "rm ${SCRAP_FOLDER}/${POKEMON_NAME}.png; echo Download of ${POKEMON_NAME} was cancelled; exit" 1 2 15
 
-	echo "  > Downloading '$pokemon_name' from '$pokemon_url' to '$scrap_folder/$pokemon_name.png' ..."
-	wget "$pokemon_url" -O "$scrap_folder/$pokemon_name.png" -q
-
-	pokemon_total=$((pokemon_total+1))
+	echo "  > Downloading '$POKEMON_NAME' from '$POKEMON_URL' to '$SCRAP_FOLDER/${POKEMON_NATIONAL_DEX_NUMBER}_${POKEMON_NAME}.png' ..."
+	wget "$POKEMON_URL" -O "${SCRAP_FOLDER}/${POKEMON_NATIONAL_DEX_NUMBER}_${POKEMON_NAME}.png" -q
 done
 
-echo "Done ! Downloaded $pokemon_total Pokemon !"
+POKEMON_TOTAL=$(echo "$POKEMON_IMAGES" | wc -l)
+echo "Done ! Downloaded $POKEMON_TOTAL Pokemon !"
