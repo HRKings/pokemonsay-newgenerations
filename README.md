@@ -1,7 +1,7 @@
 pokemonsay : Revived
 ==========
 
-![You should try pokemonsay!](example.png)
+![You should try pokemonsay!](res/example.png)
 
 `pokemonsay` is like [`cowsay`][cowsay] but for pokémon only. Internally, `pokemonsay` still uses `cowsay`, so you need it installed too. This repo is a revamp of the original [`pokemonsay`][original_pokemonsay], which looks abandoned now, I'm a big fan of pokemon, so I took the mantle to update it. This version includes all pokemon sprites found in the [bulbapedia][bulbapedia] national dex, including alternate forms (like Alolan and Galarian).
 
