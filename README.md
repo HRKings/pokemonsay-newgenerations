@@ -31,7 +31,7 @@ Keep in mind that `pokemonsay` will only work if you have `cowsay` installed and
 
 ```bash
 git clone https://github.com/HRKings/pokemonsay-newgenerations
-cd pokemonsay
+cd pokemonsay-newgenerations
 ./install.sh
 ```
 
