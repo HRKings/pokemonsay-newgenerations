@@ -30,7 +30,7 @@ sudo apt-get install fortune cowsay
 Keep in mind that `pokemonsay` will only work if you have `cowsay` installed and available in your `$PATH`. To install `pokemonsay` run these commands in a terminal window:
 
 ```bash
-git clone http://github.com/possatti/pokemonsay
+git clone https://github.com/HRKings/pokemonsay-newgenerations
 cd pokemonsay
 ./install.sh
 ```
