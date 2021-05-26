@@ -9,6 +9,10 @@ usage() {
 	echo "  Options:"
 	echo "    -p, --pokemon POKEMON_NAME"
 	echo "      Choose what pokemon will be used by its name."
+	echo "    -d, --nationalDex NATIONAL_DEX_NUMBER"
+	echo "      Choose what pokemon will be used by its national dex number."
+	echo "    -D, --nationalDexForms NATIONAL_DEX_NUMBER"
+	echo "      Choose what pokemon will be used by its national dex number (With a random form for the chosen pokemon)."
 	echo "    -f, --file COW_FILE"
 	echo "      Specify which .cow file should be used."
 	echo "    -W, --word-wrap COLUMN"
@@ -30,7 +34,7 @@ usage() {
 
 INSTALL_PATH=${HOME}/.bin/pokemonsay
 # Where the pokemon are.
-POKEMON_PATH=${INSTALL_PATH}/pokemons
+POKEMON_PATH=./pokemons
 
 list_pokemon() {
 	echo "Pokémon available in '$POKEMON_PATH/':"
@@ -64,6 +68,14 @@ case $key in
 		;;
 	-d=*|--nationalDex=*)
 		NATIONAL_DEX="${1#*=}"
+		shift
+		;;
+	-D|--nationalDexForms)
+		NATIONAL_DEX_FORMS="$2"
+		shift; shift
+		;;
+	-D=*|--nationalDexForms=*)
+		NATIONAL_DEX_FORMS="${1#*=}"
 		shift
 		;;
 	-f|--file)
@@ -127,13 +139,15 @@ fi
 
 # Define which pokemon should be displayed.
 if [ -n "$POKEMON_NAME" ]; then
-	POKEMON_COW=$(find $POKEMON_PATH -name "*$POKEMON_NAME.cow")
+	POKEMON_COW=$(find $POKEMON_PATH -iname "*$POKEMON_NAME.cow")
 elif [ -n "$NATIONAL_DEX" ]; then
-	POKEMON_COW=$(find $POKEMON_PATH -name "${NATIONAL_DEX}_*.cow" -print -quit)
+	POKEMON_COW=$(find $POKEMON_PATH -regextype sed -regex ".*/${NATIONAL_DEX}\_\w*[^\-]\.cow")
+elif [ -n $NATIONAL_DEX_FORMS ]; then
+	POKEMON_COW=$(find $POKEMON_PATH -name "${NATIONAL_DEX_FORMS}_*.cow" | shuf -n 1)
 elif [ -n "$COW_FILE" ]; then
 	POKEMON_COW="$COW_FILE"
 else
-	POKEMON_COW=$(find $POKEMON_PATH -name "*.cow" | shuf -n1)
+	POKEMON_COW=$(find $POKEMON_PATH -name "*.cow" | shuf -n 1)
 fi
 
 # Get the pokemon name.
