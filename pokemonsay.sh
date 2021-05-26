@@ -43,8 +43,9 @@ list_pokemon() {
 	echo "$ALL_POKEMON" | while read POKEMON; do
 		POKEMON=${POKEMON##*/}
 		POKEMON=${POKEMON%.cow}
+		DEX=${POKEMON%_*}
 		POKEMON=${POKEMON##*_}
-		echo $POKEMON
+		echo "$DEX - $POKEMON"
 	done
 	exit 0
 }
