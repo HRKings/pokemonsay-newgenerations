@@ -34,7 +34,7 @@ usage() {
 
 INSTALL_PATH=${HOME}/.bin/pokemonsay
 # Where the pokemon are.
-POKEMON_PATH=./pokemons
+POKEMON_PATH=${INSTALL_PATH}/pokemons
 
 list_pokemon() {
 	echo "Pokémon available in '$POKEMON_PATH/':"
