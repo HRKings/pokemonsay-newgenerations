@@ -34,7 +34,7 @@ usage() {
 
 INSTALL_PATH=${HOME}/.bin/pokemonsay
 # Where the pokemon are.
-POKEMON_PATH=${INSTALL_PATH}/pokemons
+POKEMON_PATH=./pokemons
 
 list_pokemon() {
 	echo "Pokémon available in '$POKEMON_PATH/':"
@@ -139,11 +139,11 @@ elif [ -n "$WORD_WRAP" ]; then
 fi
 
 # Define which pokemon should be displayed.
-if [ -n "$POKEMON_NAME" ]; then
+if   [ -n "$POKEMON_NAME" ]; then
 	POKEMON_COW=$(find $POKEMON_PATH -iname "*$POKEMON_NAME.cow")
 elif [ -n "$NATIONAL_DEX" ]; then
 	POKEMON_COW=$(find $POKEMON_PATH -regextype sed -regex ".*/${NATIONAL_DEX}\_\w*[^\-]\.cow")
-elif [ -n $NATIONAL_DEX_FORMS ]; then
+elif [ -n "$NATIONAL_DEX_FORMS" ]; then
 	POKEMON_COW=$(find $POKEMON_PATH -name "${NATIONAL_DEX_FORMS}_*.cow" | shuf -n 1)
 elif [ -n "$COW_FILE" ]; then
 	POKEMON_COW="$COW_FILE"
