@@ -67,12 +67,39 @@ You get a cowthink-like version too. Try it:
 pokemonthink --pokemon Charmander "Should I wear some clothes?"
 ```
 
-### Forms
+### Listing all pokemon
+
+You can list all pokemon by passing the `-l` flag, like this:
+
+```bash
+pokemonsay -l
+```
+
+This will print all pokemon, their forms and National Dex numbers;
+
+### Selecting specific pokemon
+
+You can select specific pokemon using two flags:
+#### `-p` or `--pokemon`
+
+Then you pass the pokemon name, like so:
+
+```bash
+pokemonsay -p Pikachu
+# Or
+pokemonsay --pokemon Pikachu "Pika pika!"
+```
+
+_Tip: use `pokemon -l` to see a list of available pokemon_
+
+Using this method you can also specify which form of the pokemon to use (see bellow).
+
+##### Forms
 
 Some pokemon have alternate forms, such as Alolan and Galarian, to use theses forms you can provide a `-FORM` after the pokemon name, where the form is one from the list bellow, keep in mind that only pokemon with alternate forms can be invoked like this.
 
 ```bash
-pokemonthink --pokemon Raichu-A "I am in Alola !"
+pokemonthink --pokemon Raichu-A "I am in Alola!"
 ```
 
 The available forms are:
@@ -112,6 +139,34 @@ And alternate forms for some pokemon:
 - `Zamazenta-C` : Crowned Form Zamazenta
 
 (Yes, that's a lot of alternate forms)
+
+#### `-d` or `--nationalDex`
+
+You can also pass the National Dex number to get the pokemon, like so:
+
+```bash
+# To specify Pikachu
+pokemonsay -d 025 "Pika pika!"
+```
+
+_Obs.: For this to work, you have to zero-pad the number to 3 places (001 for example)_
+
+Using this, you can select a specific generation using RNG, like so:
+```bash
+# This will select randomly one of the original 151
+pokemonsay -d $(printf "%03d\n" $(shuf -i 1-151 -n 1))
+```
+
+_Obs.: This way will always select the base form of the pokemon_
+
+#### `-D` or `--nationalDexForms`
+
+This is like the method above, but it will select a random form each time the command is run
+
+```bash
+# To specify Rotom and select a random form
+pokemonsay -D 479 "I have multiple forms!"
+```
 
 ## Uninstall
 
