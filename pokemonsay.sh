@@ -132,7 +132,7 @@ done
 
 # Disable wrapping if the option is set, otherwise
 # define where to wrap the message.
-if [ "${DISABLE_WRAP}" == "YES" ]; then
+if [ "${DISABLE_WRAP}" = "YES" ]; then
 	word_wrap="-n"
 elif [ -n "$WORD_WRAP" ]; then
 	word_wrap="-W $WORD_WRAP"
