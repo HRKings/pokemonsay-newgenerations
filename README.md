@@ -45,14 +45,16 @@ Again, if you use Arch Linux or any other Arch-based distro, you can get pokemon
 yay -S pokemonsay-newgenerations-git
 ```
 
-### Debian and Ubuntu and any distro based on them can use [MPR](https://mpr.hunterwittenborn.com/) to install pokemonsay. use tap or makedeb the choice is yours. 
-using makedeb,
+### Debian and Ubuntu
+On any distro based on these two, you can use [MPR](https://mpr.hunterwittenborn.com/) to install pokemonsay. Use tap or makedeb, the choice is yours. 
+
+`Makedeb`:
 ```
 git clone https://mpr.hunterwittenborn.com/pokemonsay-newgenerations-git.git
 cd pokemonsay-newgenerations-git
 makedeb -si
 ```
-OR, via tap,
+Or, using `tap`:
 ```
 tap install pokemonsay-newgenerations-git
 ```
