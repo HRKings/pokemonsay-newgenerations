@@ -4,7 +4,7 @@ usage() {
 	echo
 	echo "  Description: Pokemonsay makes a pokémon say something to you."
 	echo
-	echo "  Usage: $(basename $0) [-p POKEMON_NAME] [-f COW_FILE] [-w COLUMN] [-l] [-n] [-t] [-h] [MESSAGE]"
+	echo "  Usage: $(basename "$0") [-p POKEMON_NAME] [-f COW_FILE] [-w COLUMN] [-l] [-n] [-t] [-h] [MESSAGE]"
 	echo
 	echo "  Options:"
 	echo "    -p, --pokemon POKEMON_NAME"
@@ -40,7 +40,7 @@ list_pokemon() {
 	echo "Pokémon available in '$POKEMON_PATH/':"
 	echo
 	ALL_POKEMON="$(find $POKEMON_PATH -name "*.cow" | sort)"
-	echo "$ALL_POKEMON" | while read POKEMON; do
+	echo "$ALL_POKEMON" | while read -r POKEMON; do
 		POKEMON=${POKEMON##*/}
 		POKEMON=${POKEMON%.cow}
 		DEX=${POKEMON%_*}
@@ -140,9 +140,9 @@ fi
 
 # Define which pokemon should be displayed.
 if   [ -n "$POKEMON_NAME" ]; then
-	POKEMON_COW=$(find $POKEMON_PATH -iname "*$POKEMON_NAME.cow")
+	POKEMON_COW=$(find $POKEMON_PATH -iname "*$POKEMON_NAME.cow" | shuf -n 1)
 elif [ -n "$NATIONAL_DEX" ]; then
-	POKEMON_COW=$(find $POKEMON_PATH -regextype sed -regex ".*/${NATIONAL_DEX}\_\w*[^\-]\.cow")
+	POKEMON_COW=$(find $POKEMON_PATH -regextype sed -regex ".*${NATIONAL_DEX}\_\w*[^\-]\.cow" | shuf -n 1)
 elif [ -n "$NATIONAL_DEX_FORMS" ]; then
 	POKEMON_COW=$(find $POKEMON_PATH -name "${NATIONAL_DEX_FORMS}_*.cow" | shuf -n 1)
 elif [ -n "$COW_FILE" ]; then
@@ -158,12 +158,12 @@ POKEMON_NAME="${POKEMON_NAME##*_}"
 
 # Call cowsay or cowthink.
 if [ -n "$THINK" ]; then
-	cowthink -f "$POKEMON_COW" $word_wrap $MESSAGE
+	cowthink -f "$POKEMON_COW" "$word_wrap" "$MESSAGE"
 else
-	cowsay -f "$POKEMON_COW" $word_wrap $MESSAGE
+	cowsay -f "$POKEMON_COW" "$word_wrap" "$MESSAGE"
 fi
 
 # Write the pokemon name, unless requested otherwise.
 if [ -z "$DISPLAY_NAME" ]; then
-	echo $POKEMON_NAME
+	echo "${POKEMON_NAME}"
 fi
