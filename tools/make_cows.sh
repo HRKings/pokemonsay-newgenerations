@@ -4,7 +4,9 @@
 # Transform image files pixel per pixel into cow files.
 #
 
-for FULLFILENAME in ./scrapped-data/*.png
+mkdir -p "../pokemons"
+
+for FULLFILENAME in ./sprites/*.png
 do
     FILENAME=$(basename "$FULLFILENAME")
     FILENAME="${FILENAME%.*}"
