@@ -2,7 +2,7 @@
 
 usage() {
 	echo
-	echo "  Description: Pokemonsay makes a pokémon say something to you."
+	echo "  Description: Pokemonsay makes a pokemon say something to you."
 	echo
 	echo "  Usage: $(basename "$0") [-p POKEMON_NAME] [-f COW_FILE] [-w COLUMN] [-l] [-n] [-t] [-h] [MESSAGE]"
 	echo
@@ -20,11 +20,13 @@ usage() {
 	echo "    -n, --no-wrap"
 	echo "      Do not wrap the messages."
 	echo "    -l, --list"
-	echo "      List all the pokémon available."
+	echo "      List all the pokemon available."
+	echo "    -L, --listForms"
+	echo "      List all the pokemon alternate forms available."
 	echo "    -N, --no-name"
-	echo "      Do not tell the pokémon name."
+	echo "      Do not tell the pokemon name."
 	echo "    -t, --think"
-	echo "      Make the pokémon think the message, instead of saying it."
+	echo "      Make the pokemon think the message, instead of saying it."
 	echo "    -h, --help"
 	echo "      Display this usage message."
 	echo "    MESSAGE"
@@ -37,9 +39,23 @@ INSTALL_PATH=${HOME}/.bin/pokemonsay
 POKEMON_PATH=${INSTALL_PATH}/pokemons
 
 list_pokemon() {
-	echo "Pokémon available in '$POKEMON_PATH/':"
+	echo "Pokemon available in '$POKEMON_PATH/':"
 	echo
-	ALL_POKEMON="$(find $POKEMON_PATH -name "*.cow" | sort)"
+	ALL_POKEMON="$(find $POKEMON_PATH -regextype sed -regex "${POKEMON_PATH}/[0-9]\+\w*[^\-]\.cow" | sort)"
+	echo "$ALL_POKEMON" | while read -r POKEMON; do
+		POKEMON=${POKEMON##*/}
+		POKEMON=${POKEMON%.cow}
+		DEX=${POKEMON%_*}
+		POKEMON=${POKEMON##*_}
+		echo "$DEX - ${POKEMON^}"
+	done
+	exit 0
+}
+
+list_pokemon_forms() {
+	echo "Pokemon available in '$POKEMON_PATH/':"
+	echo
+	ALL_POKEMON="$(find $POKEMON_PATH -regextype sed -regex ".*[\-]\+.*\.cow" | sort)"
 	echo "$ALL_POKEMON" | while read -r POKEMON; do
 		POKEMON=${POKEMON##*/}
 		POKEMON=${POKEMON%.cow}
@@ -101,6 +117,9 @@ case $key in
 		;;
 	-l|--list)
 		list_pokemon
+		;;
+	-L|--listForms)
+		list_pokemon_forms
 		;;
 	-N|--no-name)
 		DISPLAY_NAME="NO"
