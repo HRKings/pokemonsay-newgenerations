@@ -3,11 +3,11 @@ pokemonsay : New Generations
 
 ![You should try pokemonsay!](res/example.png)
 
-`pokemonsay` is like [`cowsay`][cowsay] but for pokémon only. Internally, `pokemonsay` still uses `cowsay`, so you need it installed too. This repo is a revamp of the original [`pokemonsay`][original_pokemonsay], which looks abandoned now, I'm a big fan of pokemon, so I took the mantle to update it. This version includes all pokemon sprites found in the [bulbapedia][bulbapedia] national dex, including alternate forms (like Alolan and Galarian).
+`pokemonsay` is like [`cowsay`][cowsay] but for pokemon only. Internally, `pokemonsay` still uses `cowsay`, so you need it installed too. This repo is a revamp of the original [`pokemonsay`][original_pokemonsay], which looks abandoned now, I'm a big fan of pokemon, so I took the mantle to update it. This version includes all pokemon sprites found in the [PokeSprite Project][pokesprite] national dex, including alternate forms (like Alolan and Galarian).
 
 ## Dependencies
 
-If you simply want to use `pokemonsay`, the only thing you need installed is `cowsay`. But you are probably interested in `fortune` as well, to provide random sayings to your pokémon.
+If you simply want to use `pokemonsay`, the only thing you need installed is `cowsay`. But you are probably interested in `fortune` as well, to provide random sayings to your pokemon.
 
 ### Arch Linux
 
@@ -67,13 +67,13 @@ Now that you've installed `pokemonsay`, you can make it work like so:
 pokemonsay Hello World
 ```
 
-To have a random pokémon saying some random thing to you, use `fortune`:
+To have a random pokemon saying some random thing to you, use `fortune`:
 
 ```bash
 fortune | pokemonsay
 ```
 
-And if you really like it, you can add the command above to the end of your `~/.bashrc` file (or equivalent). So you will have a random pokémon speaking to you whenever you open a new terminal window! :D
+And if you really like it, you can add the command above to the end of your `~/.bashrc` file (or equivalent). So you will have a random pokemon speaking to you whenever you open a new terminal window! :D
 
 You get a cowthink-like version too. Try it:
 
@@ -83,7 +83,7 @@ pokemonthink --pokemon Charmander "Should I wear some clothes?"
 
 ### Listing all pokemon
 
-You can list all pokemon by passing the `-l` flag, like this:
+You can list all pokemon by passing the `-l` or `--list` flag, like this:
 
 ```bash
 pokemonsay -l
@@ -106,53 +106,25 @@ pokemonsay --pokemon Pikachu "Pika pika!"
 
 _Tip: use `pokemon -l` to see a list of available pokemon_
 
-Using this method you can also specify which form of the pokemon to use (see bellow).
+Using this method you can also specify which form of the pokemon to use.
 
 ##### Forms
 
-Some pokemon have alternate forms, such as Alolan and Galarian, to use theses forms you can provide a `-FORM` after the pokemon name, where the form is one from the list bellow, keep in mind that only pokemon with alternate forms can be invoked like this.
+Some pokemon have alternate forms, such as Mega, Alolan, Galarian, Shiny, Gigantamax, Outfits and Female Forms, to use theses forms you can provide a the full pokemon name and form while using the `-p` or `--pokemon` flag.
+
+- `S` stands for Shiny
+- `F` stands for Female
+- `FS` stands for Female Shiny
+
+All other forms comes after the pokemon name.
+
+To see a full list of forms, use the flag `-L` or `--listForms`:
 
 ```bash
-pokemonthink --pokemon Raichu-A "I am in Alola!"
+pokemonsay -L
 ```
 
-The available forms are:
-
-- `-A` : For Alolan forms
-- `-G` : For Galarian forms
-- `-F` : For pokemon with female alternate sprites
-
-And alternate forms for some pokemon:
-- `Giratina-O` : Origin Form Giratina
-- `Shaymin-S` : Sky FormS haymin
-- `Basculin-B` : Blue Basculin
-- `Burmy-G` : Sandy Cloak Burmy
-- `Burmy-S` : Trash Cloak Burmy
-- `Calyrex-I` : Ice Rider Calyrex
-- `Calyrex-S` : Shadow Rider Calyrex
-- `Castform-H` : Snowy Form Castform
-- `Castform-R` : Rainy Form Castform
-- `Castform-S` : Sunny Form Castform
-- `Darmanitan-Z` : Zen Mode Darmanitan
-- `Darmanitan-GZ` : Galarian Zen Mode Darmanitan
-- `Deoxys-A` : Attack Form Deoxys
-- `Deoxys-D` : Defense Form Deoxys
-- `Deoxys-S` : Speed Form Deoxys
-- `Gastrodon-E` : East Sea Gastrodon
-- `Hoopa-U` : Unbound Hoopa
-- `Meloetta-P` : Pirouette Form Meloetta
-- `Rotom-F` : Fan Rotom
-- `Rotom-L` : Mow Rotom
-- `Rotom-O` : Heat Rotom
-- `Rotom-R` : Frost Rotom
-- `Rotom-W` : Wash Rotom
-- `Shellos-E` : East Sea Shellos
-- `Wormadam-G` : Sandy Cloak Wormadam
-- `Wormadam-S` : Trash Cloak Wormadam
-- `Zacian-C` : Crowned Form Zacian
-- `Zamazenta-C` : Crowned Form Zamazenta
-
-(Yes, that's a lot of alternate forms)
+_(Yes.. that's a lot of forms, over 2600 of them !)_
 
 #### `-d` or `--nationalDex`
 
@@ -184,7 +156,7 @@ pokemonsay -D 479 "I have multiple forms!"
 
 ## Uninstall
 
-Just in case you hate Pokémon and you've installed `pokemonsay` "by mistake"... Humpf! You can uninstall it by running:
+Just in case you hate Pokemon and you've installed `pokemonsay` "by mistake"... Humpf! You can uninstall it by running:
 
 ```bash
 sh $HOME/.bin/pokemonsay/uninstall.sh
@@ -194,14 +166,13 @@ sh $HOME/.bin/pokemonsay/uninstall.sh
 
 If you want to rebuild everything in the repository,  To install it you will need to build from source. The instructions are provided on their repository. And if you know an easier way, please tell me!
 
-In order to use `pokemonsay` you don't need to build anything because everything is built already within the repository. But if you want to download the whole images again or make some change in the process, you will also need [`img2xterm`][img2xterm] which is used to generate cowfiles from the pokémon images. Here is how it's done:
+In order to use `pokemonsay` you don't need to build anything because everything is built already within the repository. But if you want to download the whole images again or make some change in the process, you will also need [`img2xterm`][img2xterm] which is used to generate cowfiles from the pokemon images. Here is how it's done:
 
 ```bash
-# Download pokémon images from Bulbapedia... Thanks bulbapedia!
-sh ./tools/scrap_data.sh
+# Clone PokeSprite Project and rename them to have the NationalDex number... Thanks PokeSprite maintainers!
+sh ./tools/get_pokesprite.sh
 
-# Manipulate the downloaded images, to make the pokémon look
-# to the right, and trim the useless space around them.
+# Manipulate the downloaded sprites to trim the useless space around them.
 sh ./tools/fix_images.sh
 
 # Use 'img2xterm' to generate .cow files (for 'cowsay').
@@ -212,10 +183,10 @@ And there it is. Now install it with `install.sh` and you are done.
 
 ## NOTICE
 
-Please notice I don't own Pokémon or anything related to it. Pokémon is property of [The Pokémon Company][the-pokemon-company].
+Please notice I don't own Pokemon or anything related to it. Pokemon is property of [The Pokemon Company][the_pokemon_company].
 
 [img2xterm]: https://github.com/rossy/img2xterm
 [cowsay]: https://en.wikipedia.org/wiki/Cowsay
 [original_pokemonsay]: https://github.com/possatti/pokemonsay
-[the-pokemon-company]: https://en.wikipedia.org/wiki/The_Pok%C3%A9mon_Company
-[bulbapedia]: https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number
+[the_pokemon_company]: https://en.wikipedia.org/wiki/The_Pok%C3%A9mon_Company
+[pokesprite]: https://github.com/msikma/pokesprite
