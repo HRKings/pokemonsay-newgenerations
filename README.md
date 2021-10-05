@@ -3,7 +3,7 @@ pokemonsay : New Generations
 
 ![You should try pokemonsay!](res/example.png)
 
-`pokemonsay` is like [`cowsay`][cowsay] but for pokemon only. Internally, `pokemonsay` still uses `cowsay`, so you need it installed too. This repo is a revamp of the original [`pokemonsay`][original_pokemonsay], which looks abandoned now, I'm a big fan of pokemon, so I took the mantle to update it. This version includes all pokemon sprites found in the [PokeSprite Project][pokesprite] national dex, including alternate forms (like Alolan and Galarian).
+`pokemonsay` is like [`cowsay`][cowsay] but for pokemon only. Internally, `pokemonsay` still uses `cowsay`, so you need it installed too. This repo is a revamp of the original [`pokemonsay`][original_pokemonsay], which looks abandoned now, I'm a big fan of pokemon, so I took the mantle to update it. This version includes all pokemon sprites found in the [PokeSprite Project][pokesprite], including alternate forms (like Shinies, Megas, Alolan, Female Alternates,Galarian and Gigantamax).
 
 ## Dependencies
 
@@ -89,7 +89,7 @@ You can list all pokemon by passing the `-l` or `--list` flag, like this:
 pokemonsay -l
 ```
 
-This will print all pokemon, their forms and National Dex numbers;
+This will print all pokemon and National Dex numbers;
 
 ### Selecting specific pokemon
 
@@ -121,7 +121,7 @@ All other forms comes after the pokemon name.
 To see a full list of forms, use the flag `-L` or `--listForms`:
 
 ```bash
-pokemonsay -L
+pokemonsay -L | less
 ```
 
 _(Yes.. that's a lot of forms, over 2600 of them !)_
