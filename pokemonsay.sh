@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 usage() {
 	echo
@@ -151,10 +151,11 @@ done
 
 # Disable wrapping if the option is set, otherwise
 # define where to wrap the message.
+word_wrap=()
 if [ "${DISABLE_WRAP}" = "YES" ]; then
-	word_wrap="-n"
+	word_wrap=("-n")
 elif [ -n "$WORD_WRAP" ]; then
-	word_wrap="-W $WORD_WRAP"
+	word_wrap=("-W" "$WORD_WRAP")
 fi
 
 # Define which pokemon should be displayed.
@@ -177,9 +178,9 @@ POKEMON_NAME="${POKEMON_NAME##*_}"
 
 # Call cowsay or cowthink.
 if [ -n "$THINK" ]; then
-	cowthink -f "$POKEMON_COW" "$word_wrap" "$MESSAGE"
+	cowthink -f "$POKEMON_COW" "${word_wrap[@]}" "$MESSAGE"
 else
-	cowsay -f "$POKEMON_COW" "$word_wrap" "$MESSAGE"
+	cowsay -f "$POKEMON_COW" "${word_wrap[@]}" "$MESSAGE"
 fi
 
 # Write the pokemon name, unless requested otherwise.
