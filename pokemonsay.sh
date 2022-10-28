@@ -21,7 +21,7 @@ usage() {
 	echo "      Do not wrap the messages."
 	echo "    -l, --list"
 	echo "      List all the pokemon available."
-	echo "    -L, --listForms"
+	echo "    -L, --list-forms"
 	echo "      List all the pokemon alternate forms available."
 	echo "    -N, --no-name"
 	echo "      Do not tell the pokemon name."
@@ -118,7 +118,7 @@ case $key in
 	-l|--list)
 		list_pokemon
 		;;
-	-L|--listForms)
+	-L|--list-forms|--listForms)
 		list_pokemon_forms
 		;;
 	-N|--no-name)
