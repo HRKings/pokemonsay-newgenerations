@@ -5,6 +5,8 @@ pokemonsay : New Generations
 
 `pokemonsay` is like [`cowsay`][cowsay] but for pokemon only. Internally, `pokemonsay` still uses `cowsay`, so you need it installed too. This repo is a revamp of the original [`pokemonsay`][original_pokemonsay], which looks abandoned now, I'm a big fan of pokemon, so I took the mantle to update it. This version includes all pokemon sprites found in the [PokeSprite Project][pokesprite], including alternate forms (like Shinies, Megas, Alolan, Female Alternates,Galarian and Gigantamax).
 
+Now with Gen 9 Pokemon thanks to the [National Pokedex - Icon Dex][national_pokedex_icon_dex] !
+
 ## Dependencies
 
 If you simply want to use `pokemonsay`, the only thing you need installed is `cowsay`. But you are probably interested in `fortune` as well, to provide random sayings to your pokemon.
@@ -46,7 +48,7 @@ yay -S pokemonsay-newgenerations-git
 ```
 
 ### Debian and Ubuntu
-On any distro based on these two, you can use [MPR](https://mpr.hunterwittenborn.com/) to install pokemonsay. Use tap or makedeb, the choice is yours. 
+On any distro based on these two, you can use [MPR](https://mpr.hunterwittenborn.com/) to install pokemonsay. Use tap or makedeb, the choice is yours.
 
 `Makedeb`:
 ```
@@ -190,3 +192,4 @@ Please notice I don't own Pokemon or anything related to it. Pokemon is property
 [original_pokemonsay]: https://github.com/possatti/pokemonsay
 [the_pokemon_company]: https://en.wikipedia.org/wiki/The_Pok%C3%A9mon_Company
 [pokesprite]: https://github.com/msikma/pokesprite
+[national_pokedex_icon_dex]: https://www.deviantart.com/mbcmechachu/art/National-Pokedex-Icon-Dex-824897934
